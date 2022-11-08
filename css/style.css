@@ -1,3 +1,13 @@
 body {
   background-color: lightgreen;
 }
+
+.order {
+  order: -1;
+}
+
+.card-image {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
