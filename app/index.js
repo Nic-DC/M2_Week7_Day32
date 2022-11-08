@@ -21,6 +21,7 @@ const minutes = document.querySelectorAll(".btn-group + .text-muted"); // minute
 const searchInput = document.getElementById("searchInput"); // search input in jumbotron
 const searchBtn = document.getElementById("searchBtn"); // search button
 const carouselImage = document.querySelectorAll(".carousel-images"); // carousel images
+const viewBtns = document.querySelectorAll(".btn-group *:nth-child(1)");
 
 /* ---------------------
 Options:
@@ -198,3 +199,25 @@ populateCarousel();
 /* ---------------------
 EX9:
 ----------------------*/
+// viewBtns
+
+// <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#imageModal">
+//       Launch demo modal
+//     </button >
+
+const viewImageInModal = () => {
+  const modal = document.querySelector(".modal-body");
+  console.log({ modal });
+  const images = document.querySelector(".card-image");
+  for (let i = 0; i < viewBtns.length; i++) {
+    viewBtns[i].dataToggle = "modal";
+    viewBtns[i].dataTarget = "#imageModal";
+
+    viewBtns[i].addEventListener("click", () => {
+      console.log("click");
+      console.log({ modal });
+      //modal[i].innerHTML = `${images[i]}`;
+    });
+  }
+};
+viewImageInModal();
