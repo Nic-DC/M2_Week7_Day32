@@ -5,6 +5,8 @@ GLOBAL variables:
 ----------------------*/
 let allImagesFirstQuery = [];
 let allImagesSecondQuery = [];
+let searchedImages = [];
+let carouselImages = [];
 
 /* ---------------------
 DOM elements:
@@ -15,6 +17,10 @@ const allCards = document.querySelectorAll(".card"); // cards div
 const allCardBodies = document.querySelectorAll(".card-body"); // card-body divs
 const imgs = document.querySelectorAll(".card.shadow-sm"); // image divs
 const editBtns = document.querySelectorAll(".btn-group *:nth-child(2)"); // all edit buttons
+const minutes = document.querySelectorAll(".btn-group + .text-muted"); // minutes
+const searchInput = document.getElementById("searchInput"); // search input in jumbotron
+const searchBtn = document.getElementById("searchBtn"); // search button
+const carouselImage = document.querySelectorAll(".carousel-images"); // carousel images
 
 /* ---------------------
 Options:
@@ -83,6 +89,9 @@ const appendImgs = () => {
     image.src = allImagesFirstQuery[i].src.medium;
 
     imgs[i].appendChild(image);
+
+    // Ex5:
+    minutes[i].innerText = allImagesFirstQuery[i].id;
   }
 };
 
@@ -101,6 +110,9 @@ const appendSecondaryImages = () => {
     image.src = allImagesSecondQuery[i].src.medium;
 
     imgs[i].appendChild(image);
+
+    // Ex5:
+    minutes[i].innerText = allImagesSecondQuery[i].id;
   }
 };
 
@@ -116,8 +128,73 @@ const editToHoverBtn = () => {
 };
 editToHoverBtn();
 
+/* ---------------------
+EX4:
+----------------------*/
 const allHoverBtns = document.querySelectorAll(".btn-group *:nth-child(2)"); // all hover buttons
 
 const hideWhenHoverClicked = () => {
-  for (let i = 0; i < allHoverBtns.length; i++) {}
+  for (let i = 0; i < allHoverBtns.length; i++) {
+    allHoverBtns[i].addEventListener("click", () => {
+      allCards[i].hidden = !allCards[i].hidden;
+    });
+  }
 };
+hideWhenHoverClicked();
+
+/* ---------------------
+EX6:
+----------------------*/
+const changeImagesWithSearch = () => {
+  let input = searchInput.value;
+  console.log(input);
+  //   if (input !== "") {
+  fetch(`https://api.pexels.com/v1/search?query=${input}`, options)
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      searchedImages = response.photos;
+
+      for (let i = 0; i < allCards.length; i++) {
+        // imgs[i].innerHTML = "";
+        const image = document.createElement("img");
+        image.classList.add("img-fluid");
+        //image.classList.add("order");
+        image.classList.add("card-image");
+        image.src = searchedImages[i].src.medium;
+
+        imgs[i].appendChild(image);
+
+        // Ex5:
+        minutes[i].innerText = searchedImages[i].id;
+      }
+    });
+
+  console.log({ searchedImages });
+};
+
+searchBtn.addEventListener("click", changeImagesWithSearch);
+
+/* ---------------------
+EX7:
+----------------------*/
+
+/* ---------------------
+EX8:
+----------------------*/
+const populateCarousel = () => {
+  fetch("https://api.pexels.com/v1/search?query=forest", options)
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      carouselImages = response.photos;
+      for (let i = 0; i < carouselImage.length; i++) {
+        carouselImage[i].src = carouselImages[i].src.large;
+      }
+    });
+};
+populateCarousel();
+
+/* ---------------------
+EX9:
+----------------------*/
