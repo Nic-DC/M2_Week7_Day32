@@ -210,13 +210,12 @@ const viewImageInModal = () => {
   console.log({ modal });
   const images = document.querySelector(".card-image");
   for (let i = 0; i < viewBtns.length; i++) {
-    viewBtns[i].dataToggle = "modal";
-    viewBtns[i].dataTarget = "#imageModal";
-
     viewBtns[i].addEventListener("click", () => {
       console.log("click");
       console.log({ modal });
-      //modal[i].innerHTML = `${images[i]}`;
+      viewBtns[i].dataToggle = "modal";
+      viewBtns[i].dataTarget = "#imageModal";
+      modal.innerHTML = `<img class="img-fluid card-image" src=${allImagesFirstQuery[i].src.medium} />`;
     });
   }
 };
