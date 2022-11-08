@@ -213,8 +213,9 @@ const viewImageInModal = () => {
     viewBtns[i].addEventListener("click", () => {
       console.log("click");
       console.log({ modal });
-      viewBtns[i].dataToggle = "modal";
-      viewBtns[i].dataTarget = "#imageModal";
+      viewBtns[i].setAttribute("data-toggle", "modal");
+      viewBtns[i].setAttribute("data-target", "#imageModal");
+      //viewBtns[i].dataTarget = "#imageModal";
       modal.innerHTML = `<img class="img-fluid card-image" src=${allImagesFirstQuery[i].src.medium} />`;
     });
   }
